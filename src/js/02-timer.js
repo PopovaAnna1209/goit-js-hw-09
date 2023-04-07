@@ -51,7 +51,6 @@ function convertMs(ms) {
     const minute = second * 60;
     const hour = minute * 60;
     const day = hour * 24;
-  
     // Remaining days
     const days = addLeadingZero(Math.floor(ms / day));
     // Remaining hours
@@ -91,8 +90,6 @@ const options = {
     },
 };
 
-
-
 class Timer  {
     constructor() {
         this.isActive = false;
@@ -104,7 +101,7 @@ class Timer  {
             return;
         }
     this.isActive = true;
-    this.timerId = setInterval(()=> {
+    this.timerId = setInterval(() => {
         const currentTime = Date.now();
         const deltaTime = userDate - currentTime;
         const components = convertMs(deltaTime);
@@ -113,15 +110,16 @@ class Timer  {
         minEl.textContent = components.minutes;
         hoursEl.textContent = components.hours;
         daysEl.textContent = components.days;
+        
         if (deltaTime <= 0) {
-            this.stop();
-            timerDiv.innerHTML = "Time is over!";
+            this.timerStop();    
         } 
-    }, 1000)
 
-    }
+    }, 1000)}
+    
     timerStop() {
         clearInterval(this.timerId);
+        timerDiv.innerHTML = "Time is over!";
     }
 }
 
